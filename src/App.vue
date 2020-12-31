@@ -1,9 +1,13 @@
 <template>
-  <div id="nav">
-    <router-link to="/">Home</router-link> |
-    <router-link to="/about">About</router-link>
-  </div>
-  <router-view/>
+    <div id="nav">
+        <router-link to="/">Home</router-link> |
+        <router-link to="/about">About</router-link>
+    </div>
+    <router-view v-slot="slotProps">
+        <transition name="fade" mode="out-in">
+            <component :is="slotProps.Component"></component>
+        </transition>
+    </router-view>
 </template>
 
 <style>
@@ -27,4 +31,14 @@
 #nav a.router-link-exact-active {
   color: #42b983;
 }
+
+.fade-enter-active,
+.fade-leave-active {
+    transition: opacity 0.3s;
+}
+.fade-enter,
+.fade-leave-to {
+    opacity: 0;
+}
+
 </style>
